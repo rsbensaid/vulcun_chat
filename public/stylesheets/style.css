@@ -1,0 +1,45 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#messages{
+	width: 500px;
+	height:300px;
+	overflow: scroll;
+	border: 2px solid black;
+	padding-top: 5px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	/*background-color: red; */
+}
+
+.tex{
+	overflow: scroll;
+	}
+
+.message a{
+	padding-left: 5px;
+	display: inline;
+}
+
+.message p{
+	display: inline;
+}
+
+a {
+	padding-left: 5px;
+	padding-bottom: 5px;
+}
+
+button {
+	margin: 10px;
+}
+
+#blocking input{
+	display: block;
+}

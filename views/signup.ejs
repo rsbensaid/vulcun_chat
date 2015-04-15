@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <script type="text/javascript">
+    function validateForm(){
+      var y = document.forms["signup_form"]['password'].value;
+      var z = document.forms["signup_form"]['c_password'].value;
+      console.log('y=', y)
+      console.log('z=', z)
+      if(y !== z){
+        return false;
+      }
+    }
+    </script>
+</head>
+<body>
+	<h1>Sign Up</h1>
+	<form enctype = 'multipart/form-data' method = 'post' action ='server/signup' name = 'signup_form' onsubmit = 'validateForm()'>
+    Username: <input type = 'text' name = 'username' required>
+    Password: <input type = 'password' name = 'password' required>
+    Confirm Password: <input type = "password" name = 'c_password' required>
+    Avatar: <input type="file" name = 'avatar'>
+    Color: <input type = 'color' name ='color'>
+    <input type = 'submit'>
+  </form>
+</body>
+</html>

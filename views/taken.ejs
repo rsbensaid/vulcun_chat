@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <script type="text/javascript">
+    function validateForm(){
+      var y = document.forms["signup_form"]['password'].value;
+      var z = document.forms["signup_form"]['c_password'].value;
+      if(y !== z){
+        alert('Password and Confirm Password must match');
+        return false;
+      }
+    }
+    </script>
+</head>
+<body>
+	<h1>Sorry, but the username <%= username %> is already taken</h1>
+	<h1>Try Again</h1>
+	<form enctype = 'multipart/form-data' method = 'post' action ='server/controllers/ChatCtrl.js/signup' name = 'signup_form'>
+    Username: <input type = 'text' name = 'username' required>
+    Password: <input type = 'password' name = 'password' required>
+    Confirm Password: <input type = "password" name = 'c_password' required>
+    Avatar: <input type="file" name = 'avatar'>
+    Color: <input type = 'color' name ='color'>
+    <input type = 'submit'>
+  </form>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+  	<link rel='stylesheet' href='/stylesheets/style.css'/>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+	<h1>Welcome to the admin's lair</h1>
+	<div id = 'nonadmin_users'>
+		<h3>Block these users...</h3>
+		<form id = 'blocking' method = 'post' action = '/server/block'>
+			<% for(var x = 0; x < users.length; x++){ %>
+				<%= users[x].username %><input type = 'checkbox' name = 'user' value ='<%=users[x].username%>'>
+			<% } %>
+			<h3>...for how long?</h3>
+			Hours:<input type = 'number' name ='hours'>
+			Minutes:<input type = 'number' name ='mins'>
+			FOREVER: <input type = 'checkbox' name ='forever'>
+			<h6>Note: If you select forever, there is no coming back</h6>
+			<input type = 'submit'>
+		</form>
+	</div>
+</body>
+</html>

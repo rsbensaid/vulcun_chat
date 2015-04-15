@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+  <h1>My Profile</h1>
+  <a href="/server/<%= user_profile[0].username %>">Back to Chat</a>
+  <a href="/logout">Log Out</a>
+  <form method='post' action="/server/controllers/updateUser">
+    Username: <input name = 'username' type = 'text' value = '<%= user_profile[0].username %>'>
+    Password: <input name = 'password' type = 'password' value = '<%= user_profile[0].password %>'>
+    Confirm Password: <input type = 'password' value = '<%= user_profile[0].password %>' name = 'c_password'>
+    Avatar: <input type = 'file' value = '<%= user_profile[0].avatar %>' name = 'avatar'>
+    Color: <input type = 'color' name ='color' value = "<%= user_profile[0].color %>">
+    <input type = 'hidden' value ='<%= user_profile[0].id %>'>
+    <input type = 'submit' value = 'Update'>
+  </form>
+</body>
+</html>

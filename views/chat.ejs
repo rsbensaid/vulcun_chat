@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      // console.log('current_user');
+      var socket = io.connect();
+        socket.emit('get_chat');
+        socket.on('chat_history', function (messages){
+          console.log('los mensajes', messages);
+          for(x in messages){
+            $('#messages').append("<div id = '"+x+"' class='message'><a href='msgUser/<%=current_user%>/"+messages[x].username+"' id = 'tex'>"+messages[x].username+"</a><span style='font-weight:bold':</span><p>: "+ messages[x].message_text+"<p></div>")
+          }
+        });
+        $('#message_submit').click(function(){
+          console.log('sending message');
+          socket.emit('form_submit',
+          {
+            username: '<%= current_user %>',
+            message_text: $("input[name='message_text']").val()
+          });
+        });
+        socket.on('new_message', function (message){
+          $('#messages').append("<div class='message'><a href = '/msgUser/<%=current_user%>/"+message.username+"'>"+message.username+"</a><span style='font-weight:bold'>: "+ message.message_text+"<p></span></div>")
+          // console.log($("#messages"));
+          $('#messages').animate({"scrollTop": $('#messages')[0].scrollHeight}, 500);
+          $('#textbox').val('')
+        });
+    });
+    </script>
+  <meta charset="UTF-8">
+  <title>Home</title>
+</head>
+<body>
+	<h1>Welcome to THE chat</h1>
+  <a href="/prof/<%= current_user %>">My Profile</a>
+  <a href="/logout">Log Out</a>
+  <a href="/admin/<%= current_user %>">Admin</a>
+  <p style = 'font-weight:bold'>Click a username to send a direct message</p>
+  <input type = 'hidden' value = '<%= current_user %>' name = 'current_user'>
+  <div id = 'messages'></div>
+          Enter your message here: <input id = 'textbox' type = 'text' value = '' name = 'message_text'>
+          <button id = 'message_submit'>Submit</button>
+</body>
+</html>

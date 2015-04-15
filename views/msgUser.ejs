@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+  	<link rel='stylesheet' href='/stylesheets/style.css'/>
+	<script type="text/javascript">
+    $(document).ready(function(){
+      var socket = io.connect();
+        $('#messages').animate({"scrollTop": $('#messages')[0].scrollHeight}, 500);
+
+
+        $('#message_submit').click(function(){
+          console.log('sending DM');
+          socket.emit('dm_submit',
+          {
+            sender: '<%= users[0].username %>',
+            rec: '<%= users[1].username %>',
+            dm_text: $("input[name='dm_text']").val()
+          });
+        });
+
+        socket.on('new_dm', function (dm){
+          console.log('new dm', dm);
+          $('#messages').append("<p><span style='font-weight:bold'>"+ dm.sender +":</span> "+ dm.dm_text +"</p>");
+          $('#messages').animate({"scrollTop": $('#messages')[0].scrollHeight}, 500);
+          $('#textbox').val('')
+        })
+    });
+    </script>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+	<h1>Send <%= users[1].username %> a private message</h1>
+  <a href="/logout">Log out</a>
+  <a href="/backtochat/<%= users[0].username %>">Back to THE chat</a>
+	<div id = 'messages'>
+		
+		<% for(var i = 0; i < mensajes.length; i++){ %>
+			<p><span style='font-weight:bold'><%= mensajes[i].username %>:</span> <%= mensajes[i].dm_text %></p>
+		<% } %>
+
+	</div>
+	Enter your message here: <input id = 'textbox' type = 'text' value = '' name = 'dm_text'>
+  <input type = 'hidden' name = 'dm_sender' value = '<%= users[0].username %>'>
+	<button id = 'message_submit'>Submit</button>
+</body>
+</html>
